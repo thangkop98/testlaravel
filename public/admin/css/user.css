@@ -1,0 +1,11 @@
+.function-part{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.paginate-link{
+    display: flex;
+    justify-content: flex-end;
+    
+}
