@@ -66,7 +66,7 @@
               </td>
               <td>  
                 <a href="#" class="ml-2 mr-4" wire:click="edit({{$dt->id}})"  data-toggle="modal" data-target="#exampleModal" type="button"><i class="bi bi-pencil"></i></a>              
-                <a href="#"><i class="bi bi-trash"></i></a>
+                <a href="#" wire:click="deleteId({{$dt->id}})" data-toggle="modal" data-target="#deleteModal" type="button"><i class="bi bi-trash"></i></a>
               </td>
             </tr>
             @empty
@@ -101,10 +101,10 @@
             <div class="form-group">
               <label for="avatar" class="col-form-label">Avatar</label>
               <input type="file" class="form-control" wire:model="avatar" id="upload{{$iteration}}">
-              @if ($avatar)
+              @if ($avatar != null && !is_string($avatar))
                   <img src="{{ $avatar->temporaryUrl() }}" width="200px" height="200px">
               @else
-                  <img src="" width="200px" height="200px">
+                  <img src="{{ Storage::url($oldAvatar) }}" width="200px" height="200px">
               @endif
               @error('avatar') <span class="error">{{ $message }}</span> @enderror
             </div>
@@ -151,6 +151,7 @@
     </div>
   </div>
 <!-- -->
+@include('layouts.modals.delete')
 
   @if(count($data) > 0)
   <div class="paginate-link mr-2">

@@ -3,6 +3,8 @@
 use App\Http\Controllers\NormalControllers\LoginController;
 use App\Http\Controllers\NormalControllers\ProfileController;
 use App\Http\Controllers\NormalControllers\UserController;
+use App\Http\Controllers\NormalControllers\ProductController;
+use App\Http\Controllers\NormalControllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +36,7 @@ Route::group(['middleware' => ['auth','prevent-back-history']], function () {
     Route::get('user', [UserController::class,'index'])->name('user.list');
 
     Route::get('profile', [ProfileController::class,'index'])->name('profile');
+
+    Route::get('product', [ProductController::class,'index'])->name('product');
+    Route::get('product-categories', [ProductCategoryController::class,'index'])->name('product.categories');
 });

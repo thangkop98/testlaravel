@@ -87,38 +87,20 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('product.categories') }}" class="nav-link {{ setActive('product.categories') }}">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                UI Elements
-                <i class="fas fa-angle-left right"></i>
+                Quản lý danh mục sản phẩm
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('product') }}" class="nav-link {{ setActive('product') }}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
-                <i class="fas fa-angle-left right"></i>
+                Quản lý sản phẩm
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/validation.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ route('user.list') }}" class="nav-link {{ setActive('user.list') }}">
