@@ -25,6 +25,8 @@ class UserList extends BaseLive
     public $phone;
     public $gender = '0';
     public $iteration;
+    public $oldAvatar;
+    public $deleted_id;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -82,10 +84,10 @@ class UserList extends BaseLive
 
     public function saveData()
     {
-        $validateData = $this->validate();
         
         if($this->updateMode == false)
         {
+            $validateData = $this->validate();
             $validateData['name'] = $this->name;
             $validateData['email'] = $this->email;
             $validateData['avatar'] = $this->avatar->store('public');
@@ -98,11 +100,13 @@ class UserList extends BaseLive
             $this->resetInputFields();
         }
         else{
+            // dd('1');
+
             User::where('id',$this->user_id)->update([
                 'name' => $this->name,
                 'email' => $this->email,
                 'phone' => $this->phone,
-                'avatar' => $this->avatar ? $this->avatar->store('public') : '',
+                'avatar' => $this->avatar ? $this->avatar->store('public') : $this->oldAvatar,
                 'gender' => $this->gender
             ]);
 
@@ -111,7 +115,7 @@ class UserList extends BaseLive
             $this->resetInputFields();
         }
 
-        $this->emit('close-modal');
+        $this->emit('close-edit-modal');
     }
 
     public function edit($user_id)
@@ -124,7 +128,7 @@ class UserList extends BaseLive
             $this->name = $getUser->name;
             $this->email = $getUser->email;
             $this->phone = $getUser->phone;
-            $this->avatar = $getUser->avatar;
+            $this->oldAvatar = $getUser->avatar;
             $this->gender = $getUser->gender;
 
             
@@ -147,5 +151,24 @@ class UserList extends BaseLive
         $this->updateMode = false;
     }
 
+    public function deleteId($id)
+    {
+        $this->deleted_id = $id;
+    }
+
+    public function delete()
+    {
+        try {
+            $deletedUser = User::find($this->deleted_id);
+    
+            $deletedUser->delete();
+    
+            $this->emit('close-delete-modal');
+    
+            session()->flash('message', 'Xóa người dùng thành công');
+        } catch (\Throwable $th) {
+            session()->flash('message', 'Xóa người dùng thất bại');
+        }
+    }
 
 }
